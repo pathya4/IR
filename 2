@@ -1,0 +1,33 @@
+from collections import defaultdict
+
+
+documents = [
+    "AI is a new field in technical industry.",
+    "I am studying in AI and DS branch.",
+    "Python is a primary and essential language.",
+    "ML DS DL , all are related to each other."
+]
+
+
+def build_inverted_index(docs):
+    inverted_index = defaultdict(list)
+    for doc_id, doc in enumerate(docs):
+        for word in set(doc.lower().split()):
+            inverted_index[word].append(doc_id)
+    return inverted_index
+
+
+def retrieve_documents(search_term, inverted_index):
+    return inverted_index.get(search_term.lower(), [])
+
+
+inverted_index = build_inverted_index(documents)
+
+
+search_term = "AI"
+result_docs = retrieve_documents(search_term, inverted_index)
+
+
+print(f"Documents containing '{search_term}': {result_docs}")
+for doc_id in result_docs:
+    print(f"- Document {doc_id}: {documents[doc_id]}")
