@@ -1,0 +1,22 @@
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
+
+nltk.download('stopwords')
+nltk.download('punkt')
+
+def preprocess_text(text):
+    
+    stop_words = set(stopwords.words('english'))
+    stemmer = PorterStemmer()
+    words = word_tokenize(text)
+    
+    processed_words = [stemmer.stem(word) for word in words if word.lower() not in stop_words]
+    return ' '.join(processed_words)
+
+
+text = "Text preprocessing is an important step in Natural Language Processing."
+processed_text = preprocess_text(text)
+print("Original text:", text)
+print("Processed text:", processed_text)
